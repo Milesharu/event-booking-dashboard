@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Event Booking Dashboard</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="app-shell">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Operations Dashboard</p>
+          <h1>Event Booking Dashboard</h1>
+        </div>
+        <div class="topbar-actions">
+          <button id="loadDataBtn" class="secondary-btn" type="button">Refresh</button>
+          <button id="exportCsvBtn" class="primary-btn" type="button">Export CSV</button>
+        </div>
+      </header>
+
+      <section class="toolbar card">
+        <div class="field-group wide">
+          <label for="sheetApiUrlInput">Sheet API / Google Apps Script URL</label>
+          <input id="sheetApiUrlInput" type="url" placeholder="https://script.google.com/macros/s/.../exec" />
+        </div>
+        <div class="field-group small">
+          <label for="monthFilter">Month</label>
+          <select id="monthFilter"></select>
+        </div>
+        <div class="field-group small">
+          <label for="statusFilter">View</label>
+          <select id="statusFilter">
+            <option value="all">All Bookings</option>
+            <option value="withNet">With Net Value</option>
+            <option value="noNet">No Net Value</option>
+          </select>
+        </div>
+        <button id="connectBtn" class="primary-btn" type="button">Connect</button>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card accent-blue">
+          <span class="stat-label">Total Bookings</span>
+          <strong id="totalBookings">0</strong>
+        </article>
+        <article class="stat-card accent-green">
+          <span class="stat-label">Package Total</span>
+          <strong id="packageTotal">₱0.00</strong>
+        </article>
+        <article class="stat-card accent-yellow">
+          <span class="stat-label">Less Total</span>
+          <strong id="lessTotal">₱0.00</strong>
+        </article>
+        <article class="stat-card accent-pink">
+          <span class="stat-label">Net Total</span>
+          <strong id="netTotal">₱0.00</strong>
+        </article>
+      </section>
+
+      <section class="content-grid">
+        <div class="panel card main-panel">
+          <div class="panel-header">
+            <h2>Bookings</h2>
+            <div class="panel-search">
+              <input id="searchInput" type="search" placeholder="Search client, venue, event..." aria-label="Search bookings" />
+            </div>
+          </div>
+
+          <div class="table-wrap">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date Booked</th>
+                  <th>Date of Event</th>
+                  <th>Venue</th>
+                  <th>Client Name</th>
+                  <th>Event</th>
+                  <th># of Pax</th>
+                  <th>DP</th>
+                  <th>AE</th>
+                  <th>PR</th>
+                  <th>Package</th>
+                  <th>Less</th>
+                  <th>Net</th>
+                </tr>
+              </thead>
+              <tbody id="bookingsTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+
+        <aside class="panel card form-panel">
+          <div class="panel-header">
+            <h2>Add Booking</h2>
+          </div>
+
+          <form id="bookingForm">
+            <div class="field-grid">
+              <div class="field-group">
+                <label for="dateBooked">Date Booked</label>
+                <input id="dateBooked" name="dateBooked" type="date" required />
+              </div>
+              <div class="field-group">
+                <label for="dateEvent">Date of Event</label>
+                <input id="dateEvent" name="dateEvent" type="date" required />
+              </div>
+              <div class="field-group full-span">
+                <label for="venue">Venue</label>
+                <input id="venue" name="venue" type="text" required />
+              </div>
+              <div class="field-group full-span">
+                <label for="clientName">Client Name</label>
+                <input id="clientName" name="clientName" type="text" required />
+              </div>
+              <div class="field-group full-span">
+                <label for="eventType">Event</label>
+                <input id="eventType" name="eventType" type="text" required />
+              </div>
+              <div class="field-group">
+                <label for="pax"># of Pax</label>
+                <input id="pax" name="pax" type="number" min="0" value="0" required />
+              </div>
+              <div class="field-group">
+                <label for="dp">DP</label>
+                <input id="dp" name="dp" type="text" placeholder="C/O VENUE" />
+              </div>
+              <div class="field-group">
+                <label for="ae">AE</label>
+                <input id="ae" name="ae" type="text" placeholder="Name" />
+              </div>
+              <div class="field-group">
+                <label for="pr">PR</label>
+                <input id="pr" name="pr" type="text" placeholder="Name" />
+              </div>
+              <div class="field-group">
+                <label for="packageValue">Package</label>
+                <input id="packageValue" name="packageValue" type="number" min="0" step="0.01" value="0" />
+              </div>
+              <div class="field-group">
+                <label for="lessValue">Less</label>
+                <input id="lessValue" name="lessValue" type="number" min="0" step="0.01" value="0" />
+              </div>
+              <div class="field-group">
+                <label for="netValue">Net</label>
+                <input id="netValue" name="netValue" type="number" min="0" step="0.01" value="0" />
+              </div>
+            </div>
+
+            <div class="form-actions">
+              <button type="submit" class="primary-btn">Save Booking</button>
+              <button type="reset" class="secondary-btn">Clear</button>
+            </div>
+          </form>
+        </aside>
+      </section>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
